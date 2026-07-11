@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEMBELEA TANZANIA | Ardhi ya Maajabu</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="logo" id="secretLogo">
+    <img src="https://i.postimg.cc/c1KDdXgf/file-0000052a471f4b1ee0c79fc058395.png" alt="TANZANIA LOGO" class="logo-img">
+    <h1>TEMBELEA <span>TANZANIA</span></h1>
+  </div>
+</header>
+
+<section class="hero">
+  <h2>Gundua Uzuri wa Tanzania</h2>
+  <p>Kutoka Milima ya Theluji, Hifadhi za Wanyama, Pwani za Dhahabu hadi Mabaki ya Historia ya Kale. Karibu Nyumbani kwa Utalii.</p>
+  <a href="#vivutio" class="btn-hero">Anza Safari</a>
+</section>
+
+<div class="container" id="vivutio">
+  <h3 class="section-title">Vivutio Vikuu vya Tanzania</h3>
+  <div class="grid" id="attractionGrid"></div>
+</div>
+
+<footer>
+  <p>© 2026 TEMBELEA TANZANIA | Imetengenezwa na NOVA SOFT</p>
+</footer>
+
+<button id="scrollTop">↑</button>
+
+<!-- ADMIN DASHBOARD YA SIRI -->
+<div id="adminPanel" class="admin-hidden">
+  <div class="admin-box">
+    <h2>🔒 Admin Dashboard</h2>
+    <div id="loginForm">
+      <input type="password" id="adminPass" placeholder="Weka Password ya Siri">
+      <button onclick="checkPass()">Ingia</button>
+      <p id="adminError"></p>
+    </div>
+    
+    <div id="dashboardForm" style="display:none">
+      <h3>Ongeza Kivutio Kipya</h3>
+      <input type="text" id="newTitle" placeholder="Jina la Kivutio">
+      <input type="text" id="newTag" placeholder="Aina: Wanyama, Makumbusho, Milima, n.k">
+      <input type="text" id="newImg" placeholder="Weka Link ya Picha Hapa">
+      <textarea id="newDesc" placeholder="Andika Maelezo ya Kivutio"></textarea>
+      <button onclick="saveNew()">Hifadhi Kwenye Code</button>
+      <button onclick="closeAdmin()" style="background:#ccc; color:#000">Funga</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
