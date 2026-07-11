@@ -14,10 +14,13 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const attractionsRef = db.ref("attractions");
 
+let allAttractions = {}; // Hifadhi data hapa kwa ajili ya search
+
 // 3. ONSHESHA VIVUTIO KUTOKA FIREBASE
 function loadAttractions() {
   attractionsRef.on("value", (snapshot) => {
     const data = snapshot.val();
+    allAttractions = data; // Hifadhi
     const grid = document.getElementById('attractionGrid');
     grid.innerHTML = '';
 
@@ -25,7 +28,7 @@ function loadAttractions() {
       Object.keys(data).forEach(key => {
         const item = data[key];
         grid.innerHTML += `
-          <div class="card">
+          <div class="card" data-key="${key}">
             <img src="${item.img}" alt="${item.title}">
             <div class="card-body">
               <span class="tag">${item.tag}</span>
@@ -35,35 +38,52 @@ function loadAttractions() {
           </div>
         `;
       });
+    } else {
+      grid.innerHTML = "<p style='text-align:center'>Bado hakuna vivutio. Ongeza kwenye Admin.</p>";
     }
   });
 }
 
-// 4. SEARCH BAR - SIRI "JOSE MWENA"
-document.getElementById('searchInput').addEventListener('input', function(e){
-  const value = e.target.value.toUpperCase();
+// 4. SUBIRI PAGE IPANDE KWANZA KABLA YA KUWEKA EVENT
+document.addEventListener('DOMContentLoaded', function() {
+  loadAttractions();
 
-  // KAMA IMEANDIKWA JOSE MWENA
-  if(value === "JOSE MWENA"){
-    document.getElementById('adminPanel').classList.remove('admin-hidden');
-    e.target.value = ''; // Futa search
+  // SEARCH BAR - SIRI "JOSE MWENA"
+  const searchInput = document.getElementById('searchInput');
+  if(searchInput){
+    searchInput.addEventListener('input', function(e){
+      const value = e.target.value.toUpperCase().trim();
+      console.log("Umeandika: " + value); // Angalia kwenye console
+
+      // KAMA IMEANDIKWA JOSE MWENA
+      if(value === "JOSE MWENA"){
+        document.getElementById('adminPanel').classList.remove('admin-hidden');
+        e.target.value = ''; // Futa search
+        alert("Admin Dashboard Imefunguka! 🔓");
+      }
+
+      // HII NI SEARCH YA KAWAIDA PIA
+      filterAttractions(value);
+    });
   }
+});
 
-  // HII NI SEARCH YA KAWAIDA PIA
+// FUNCTION YA KUFILTER
+function filterAttractions(searchTerm){
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
     const title = card.querySelector('h3').innerText.toUpperCase();
-    if(title.includes(value)){
+    if(title.includes(searchTerm)){
       card.style.display = 'block';
     } else {
       card.style.display = 'none';
     }
   });
-});
+}
 
 // 5. LOGIN YA ADMIN
 function checkPass(){
-  const user = document.getElementById('adminUser').value;
+  const user = document.getElementById('adminUser').value.toUpperCase();
   const pass = document.getElementById('adminPass').value;
 
   if(user === "TEKNOVA" && pass === "2029"){
@@ -89,32 +109,30 @@ function addToFirebase(){
     tag: g,
     img: i,
     desc: d
+  }).then(() => {
+    alert("Kimehifadhiwa kwenye Firebase!");
+    document.getElementById('newTitle').value = '';
+    document.getElementById('newTag').value = '';
+    document.getElementById('newImg').value = '';
+    document.getElementById('newDesc').value = '';
   });
-
-  alert("Kimehifadhiwa kwenye Firebase!");
-  document.getElementById('newTitle').value = '';
-  document.getElementById('newTag').value = '';
-  document.getElementById('newImg').value = '';
-  document.getElementById('newDesc').value = '';
 }
 
 // 7. JAZA LIST YA KUFUTA
 function loadDeleteList(){
   const select = document.getElementById('deleteSelect');
   select.innerHTML = '';
-  attractionsRef.on("value", (snapshot) => {
-    const data = snapshot.val();
-    if(data){
-      Object.keys(data).forEach(key => {
-        select.innerHTML += `<option value="${key}">${data[key].title}</option>`;
-      });
-    }
-  });
+  if(allAttractions){
+    Object.keys(allAttractions).forEach(key => {
+      select.innerHTML += `<option value="${key}">${allAttractions[key].title}</option>`;
+    });
+  }
 }
 
 // 8. FUTA KUTOKA FIREBASE
 function deleteFromFirebase(){
   const key = document.getElementById('deleteSelect').value;
+  if(!key) return alert("Chagua cha kufuta kwanza");
   if(confirm("Una uhakika unataka kufuta?")){
     db.ref("attractions/" + key).remove();
     alert("Kimefutwa!");
@@ -138,6 +156,3 @@ window.onscroll = function() {
   else { scrollBtn.style.display = "none"; }
 };
 scrollBtn.onclick = function() { window.scrollTo({ top: 0, behavior: 'smooth' }); };
-
-// ANZISHA
-document.addEventListener('DOMContentLoaded', loadAttractions);
