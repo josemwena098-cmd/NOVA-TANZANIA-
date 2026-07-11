@@ -10,9 +10,14 @@
 <body>
 
 <header>
-  <div class="logo" id="secretLogo">
-    <img src="https://i.postimg.cc/c1KDdXgf/file-0000052a471f4b1ee0c79fc058395.png" alt="TANZANIA LOGO" class="logo-img">
+  <div class="logo">
+    <img src="https://i.postimg.cc/5yKk1XbL/tanzania-logo-tourism.png" alt="TANZANIA TOURISM LOGO" class="logo-img">
     <h1>TEMBELEA <span>TANZANIA</span></h1>
+  </div>
+
+  <!-- SEARCH BAR YA SIRI -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Tafuta kivutio...">
   </div>
 </header>
 
@@ -38,23 +43,31 @@
   <div class="admin-box">
     <h2>🔒 Admin Dashboard</h2>
     <div id="loginForm">
-      <input type="password" id="adminPass" placeholder="Weka Password ya Siri">
+      <input type="text" id="adminUser" placeholder="Username">
+      <input type="password" id="adminPass" placeholder="Password">
       <button onclick="checkPass()">Ingia</button>
       <p id="adminError"></p>
     </div>
-    
+
     <div id="dashboardForm" style="display:none">
       <h3>Ongeza Kivutio Kipya</h3>
       <input type="text" id="newTitle" placeholder="Jina la Kivutio">
       <input type="text" id="newTag" placeholder="Aina: Wanyama, Makumbusho, Milima, n.k">
       <input type="text" id="newImg" placeholder="Weka Link ya Picha Hapa">
       <textarea id="newDesc" placeholder="Andika Maelezo ya Kivutio"></textarea>
-      <button onclick="saveNew()">Hifadhi Kwenye Code</button>
+      <button onclick="addToFirebase()">Hifadhi Kwenye Firebase</button>
+      <hr style="margin:15px 0; border:1px solid var(--border)">
+      <h3>Futa Kivutio</h3>
+      <select id="deleteSelect"></select>
+      <button onclick="deleteFromFirebase()" style="background:red; color:#fff">Futa</button>
       <button onclick="closeAdmin()" style="background:#ccc; color:#000">Funga</button>
     </div>
   </div>
 </div>
 
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
