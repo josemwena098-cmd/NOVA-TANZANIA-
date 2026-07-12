@@ -1,4 +1,4 @@
-// 1. FIREBASE CONFIG YAKO
+// 1. FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyDPZx7OPw2D6J533kNX-T302RoqPGAPz7k",
   authDomain: "teknova-c9d6e.firebaseapp.com",
@@ -8,151 +8,103 @@ const firebaseConfig = {
   messagingSenderId: "47075576420",
   appId: "1:47075576420:web:29d0588bee99558d866d71"
 };
-
-// 2. ANZISHA FIREBASE
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-const attractionsRef = db.ref("attractions");
+const ref = db.ref("vivutio");
 
-let allAttractions = {}; // Hifadhi data hapa kwa ajili ya search
+let allData = {};
 
-// 3. ONSHESHA VIVUTIO KUTOKA FIREBASE
-function loadAttractions() {
-  attractionsRef.on("value", (snapshot) => {
-    const data = snapshot.val();
-    allAttractions = data; // Hifadhi
-    const grid = document.getElementById('attractionGrid');
-    grid.innerHTML = '';
+// 2. PASSWORD
+const ADMIN_USER = "TEKNOVA";
+const ADMIN_PASS = "2029";
 
-    if(data){
-      Object.keys(data).forEach(key => {
-        const item = data[key];
-        grid.innerHTML += `
-          <div class="card" data-key="${key}">
-            <img src="${item.img}" alt="${item.title}">
-            <div class="card-body">
-              <span class="tag">${item.tag}</span>
-              <h3>${item.title}</h3>
-              <p>${item.desc}</p>
-            </div>
-          </div>
-        `;
-      });
-    } else {
-      grid.innerHTML = "<p style='text-align:center'>Bado hakuna vivutio. Ongeza kwenye Admin.</p>";
-    }
-  });
-}
-
-// 4. SUBIRI PAGE IPANDE KWANZA KABLA YA KUWEKA EVENT
-document.addEventListener('DOMContentLoaded', function() {
-  loadAttractions();
-
-  // SEARCH BAR - SIRI "JOSE MWENA"
-  const searchInput = document.getElementById('searchInput');
-  if(searchInput){
-    searchInput.addEventListener('input', function(e){
-      const value = e.target.value.toUpperCase().trim();
-      console.log("Umeandika: " + value); // Angalia kwenye console
-
-      // KAMA IMEANDIKWA JOSE MWENA
-      if(value === "JOSE MWENA"){
-        document.getElementById('adminPanel').classList.remove('admin-hidden');
-        e.target.value = ''; // Futa search
-        alert("Admin Dashboard Imefunguka! 🔓");
-      }
-
-      // HII NI SEARCH YA KAWAIDA PIA
-      filterAttractions(value);
-    });
+// 3. FUNGUO: JOSE MWENA
+document.getElementById('searchInput').addEventListener('keyup', function(e){
+  if(e.key === 'Enter' && this.value.toUpperCase() === 'JOSE MWENA'){
+    document.getElementById('loginOverlay').classList.add('show');
+    this.value = '';
   }
 });
 
-// FUNCTION YA KUFILTER
-function filterAttractions(searchTerm){
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    const title = card.querySelector('h3').innerText.toUpperCase();
-    if(title.includes(searchTerm)){
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-}
-
-// 5. LOGIN YA ADMIN
-function checkPass(){
-  const user = document.getElementById('adminUser').value.toUpperCase();
-  const pass = document.getElementById('adminPass').value;
-
-  if(user === "TEKNOVA" && pass === "2029"){
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('dashboardForm').style.display = 'block';
-    loadDeleteList(); // Jaza list ya kufuta
+// 4. LOGIN
+document.getElementById('loginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const user = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPassword').value;
+  if(user.toUpperCase() === ADMIN_USER && pass === ADMIN_PASS){
+    document.getElementById('loginOverlay').classList.remove('show');
+    document.getElementById('adminPanel').classList.add('show');
+    loadAdmin();
   } else {
-    document.getElementById('adminError').innerText = "Username au Password si sahihi!";
+    document.getElementById('loginError').classList.add('show');
   }
+});
+
+// 5. HIFADHI
+document.getElementById('vivutioForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const data = {
+    title: document.getElementById('newTitle').value,
+    cat: document.getElementById('newCat').value,
+    img: document.getElementById('newImg').value,
+    desc: document.getElementById('newDesc').value
+  };
+  ref.push(data);
+  alert("Imehifadhiwa!");
+  this.reset();
+});
+
+// 6. SOMA DATA
+function loadData(){
+  ref.on('value', snap => {
+    allData = snap.val() || {};
+    renderCards();
+  });
 }
-
-// 6. ONGEZA KWENYE FIREBASE
-function addToFirebase(){
-  const t = document.getElementById('newTitle').value;
-  const g = document.getElementById('newTag').value;
-  const i = document.getElementById('newImg').value;
-  const d = document.getElementById('newDesc').value;
-
-  if(!t ||!g ||!i ||!d) return alert("Jaza sehemu zote!");
-
-  attractionsRef.push({
-    title: t,
-    tag: g,
-    img: i,
-    desc: d
-  }).then(() => {
-    alert("Kimehifadhiwa kwenye Firebase!");
-    document.getElementById('newTitle').value = '';
-    document.getElementById('newTag').value = '';
-    document.getElementById('newImg').value = '';
-    document.getElementById('newDesc').value = '';
+function renderCards(){
+  const grid = document.getElementById('vivutioGrid');
+  grid.innerHTML = '';
+  if(!allData) return grid.innerHTML = '<div class="empty-state">Bado hakuna vivutio</div>';
+  Object.keys(allData).forEach(key => {
+    const i = allData[key];
+    grid.innerHTML += `
+      <div class="card">
+        <img class="card-img" src="${i.img}" alt="${i.title}">
+        <div class="card-body">
+          <div class="card-cat">${i.cat}</div>
+          <h3>${i.title}</h3>
+          <p>${i.desc}</p>
+        </div>
+      </div>
+    `;
   });
 }
 
-// 7. JAZA LIST YA KUFUTA
-function loadDeleteList(){
-  const select = document.getElementById('deleteSelect');
-  select.innerHTML = '';
-  if(allAttractions){
-    Object.keys(allAttractions).forEach(key => {
-      select.innerHTML += `<option value="${key}">${allAttractions[key].title}</option>`;
-    });
-  }
+// 7. ADMIN LIST
+function loadAdmin(){
+  const list = document.getElementById('adminList');
+  list.innerHTML = '';
+  Object.keys(allData).forEach(key => {
+    const i = allData[key];
+    list.innerHTML += `
+      <div class="admin-list-item">
+        <img src="${i.img}">
+        <div class="info">
+          <div class="t">${i.title}</div>
+          <div class="c">${i.cat}</div>
+        </div>
+        <div class="actions">
+          <button class="icon-btn danger" onclick="del('${key}')">Futa</button>
+        </div>
+      </div>
+    `;
+  });
 }
+function del(key){ if(confirm("Futa?")) ref.child(key).remove(); }
 
-// 8. FUTA KUTOKA FIREBASE
-function deleteFromFirebase(){
-  const key = document.getElementById('deleteSelect').value;
-  if(!key) return alert("Chagua cha kufuta kwanza");
-  if(confirm("Una uhakika unataka kufuta?")){
-    db.ref("attractions/" + key).remove();
-    alert("Kimefutwa!");
-  }
-}
+// 8. FUNGA
+document.getElementById('loginClose').onclick = () => document.getElementById('loginOverlay').classList.remove('show');
+document.getElementById('backToSite').onclick = () => document.getElementById('adminPanel').classList.remove('show');
+document.getElementById('logoutBtn').onclick = () => document.getElementById('adminPanel').classList.remove('show');
 
-// 9. FUNGA ADMIN
-function closeAdmin(){
-  document.getElementById('adminPanel').classList.add('admin-hidden');
-  document.getElementById('loginForm').style.display = 'block';
-  document.getElementById('dashboardForm').style.display = 'none';
-  document.getElementById('adminUser').value = '';
-  document.getElementById('adminPass').value = '';
-  document.getElementById('adminError').innerText = '';
-}
-
-// SCROLL TOP
-const scrollBtn = document.getElementById('scrollTop');
-window.onscroll = function() {
-  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { scrollBtn.style.display = "block"; }
-  else { scrollBtn.style.display = "none"; }
-};
-scrollBtn.onclick = function() { window.scrollTo({ top: 0, behavior: 'smooth' }); };
+loadData();
