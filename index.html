@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanzania Vivutio — Gundua Uzuri wa Tanzania</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --night:#16211B;
+  --night-2:#1E2E24;
+  --amber:#E8871E;
+  --amber-2:#F5A94A;
+  --gold:#C9952B;
+  --ivory:#F3ECD8;
+  --ivory-dim:#DCD3B8;
+  --clay:#8C3B2E;
+  --acacia:#3F6047;
+  --font-display:'Fraunces', serif;
+  --font-body:'Work Sans', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--night);
+  color:var(--ivory);
+  font-family:var(--font-body);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+img{max-width:100%;display:block;}
+::selection{background:var(--amber);color:var(--night);}
+:focus-visible{outline:2px solid var(--amber-2);outline-offset:3px;}
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--amber-2);
+}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 5vw;
+  background:linear-gradient(to bottom, rgba(22,33,27,.92), rgba(22,33,27,0));
+  backdrop-filter:blur(2px);
+}
+.logo{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:1.3rem;
+  letter-spacing:.02em;
+}
+.logo span{color:var(--amber);}
+.search-wrap{
+  position:relative;
+  width:min(320px, 40vw);
+}
+.search-wrap input{
+  width:100%;
+  background:rgba(243,236,216,.08);
+  border:1px solid rgba(243,236,216,.25);
+  border-radius:30px;
+  padding:9px 16px 9px 38px;
+  color:var(--ivory);
+  font-family:var(--font-body);
+  font-size:.88rem;
+  transition:border-color .2s, background .2s;
+}
+.search-wrap input::placeholder{color:var(--ivory-dim);}
+.search-wrap input:focus{border-color:var(--amber);background:rgba(243,236,216,.13);}
+.search-wrap svg{
+  position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  width:15px;height:15px;opacity:.7;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 6vw;
+  background:
+    radial-gradient(ellipse 900px 500px at 75% 18%, rgba(232,135,30,.35), transparent 60%),
+    linear-gradient(180deg, #0F1712 0%, #16211B 55%, #1E2E24 100%);
+  overflow:hidden;
+}
+.hero-eyebrow{margin-bottom:22px;}
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(2.6rem, 7vw, 5.6rem);
+  line-height:1.02;
+  max-width:14ch;
+  letter-spacing:-.01em;
+}
+.hero h1 em{
+  font-style:italic;
+  font-weight:500;
+  color:var(--amber);
+}
+.hero p{
+  margin-top:26px;
+  max-width:46ch;
+  font-size:1.08rem;
+  color:var(--ivory-dim);
+}
+.hero-cta{
+  margin-top:40px;
+  display:inline-flex;align-items:center;gap:10px;
+  width:fit-content;
+  padding:14px 26px;
+  background:var(--amber);
+  color:var(--night);
+  font-weight:600;
+  border-radius:40px;
+  transition:transform .25s, background .25s;
+}
+.hero-cta:hover{transform:translateY(-2px);background:var(--amber-2);}
+
+.sun{
+  position:absolute;
+  width:340px;height:340px;
+  right:8vw;top:16%;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--amber-2), var(--amber) 55%, var(--clay) 100%);
+  box-shadow:0 0 120px 40px rgba(232,135,30,.28);
+  transition:top 1.2s ease, opacity 1.2s ease;
+}
+
+.horizon{
+  position:relative;
+  width:100%;
+  display:block;
+  margin-top:-6vw;
+}
+.horizon svg{width:100%;height:auto;display:block;}
+
+/* ---------- SECTION SHARED ---------- */
+section{padding:90px 6vw;}
+.section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;
+  margin-bottom:44px;
+}
+.section-head h2{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(1.8rem, 4vw, 2.8rem);
+  margin-top:8px;
+}
+
+/* ---------- CATEGORY FILTER ---------- */
+.cat-filter{
+  display:flex;gap:10px;flex-wrap:wrap;
+  margin-bottom:40px;
+}
+.cat-chip{
+  font-family:var(--font-mono);
+  font-size:.76rem;
+  letter-spacing:.05em;
+  padding:8px 16px;
+  border:1px solid rgba(243,236,216,.25);
+  border-radius:20px;
+  color:var(--ivory-dim);
+  transition:all .2s;
+}
+.cat-chip.active, .cat-chip:hover{
+  background:var(--amber);
+  color:var(--night);
+  border-color:var(--amber);
+  font-weight:600;
+}
+
+/* ---------- GRID / CARDS ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  gap:28px;
+}
+.card{
+  background:var(--night-2);
+  border:1px solid rgba(243,236,216,.08);
+  border-radius:18px;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .3s, border-color .3s;
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(232,135,30,.4);}
+.card-img{
+  width:100%;height:210px;object-fit:cover;
+  background:linear-gradient(135deg, var(--night-2), var(--acacia));
+}
+.card-body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1;}
+.card-cat{
+  font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+}
+.card h3{
+  font-family:var(--font-display);
+  font-weight:600;font-size:1.32rem;margin-bottom:10px;
+}
+.card p{color:var(--ivory-dim);font-size:.92rem;flex:1;}
+.card-more{
+  margin-top:14px;color:var(--amber-2);font-weight:600;font-size:.88rem;
+  display:inline-flex;align-items:center;gap:6px;width:fit-content;
+}
+.card-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:18px;padding-top:16px;border-top:1px solid rgba(243,236,216,.08);
+}
+.like-btn{
+  display:flex;align-items:center;gap:7px;
+  font-size:.88rem;color:var(--ivory-dim);
+  transition:color .2s;
+}
+.like-btn svg{width:17px;height:17px;transition:transform .2s;}
+.like-btn.liked{color:var(--clay);}
+.like-btn.liked svg{fill:var(--clay);transform:scale(1.15);}
+.like-btn:hover svg{transform:scale(1.15);}
+.comment-count{
+  font-size:.82rem;color:var(--ivory-dim);
+  font-family:var(--font-mono);
+}
+.empty-state{
+  grid-column:1/-1;
+  text-align:center;padding:60px 20px;
+  color:var(--ivory-dim);
+  border:1px dashed rgba(243,236,216,.2);
+  border-radius:16px;
+}
+
+/* ---------- MODAL (detail) ---------- */
+.overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(15,23,18,.82);
+  display:none;align-items:center;justify-content:center;
+  padding:24px;
+  backdrop-filter:blur(4px);
+}
+.overlay.show{display:flex;}
+.modal{
+  background:var(--night-2);
+  border:1px solid rgba(243,236,216,.12);
+  border-radius:20px;
+  width:100%;max-width:640px;
+  max-height:88vh;overflow-y:auto;
+  position:relative;
+}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;z-index:2;
+}
+.modal-img{width:100%;height:280px;object-fit:cover;}
+.modal-body{padding:28px 30px 32px;}
+.modal-body .card-cat{margin-bottom:8px;}
+.modal-body h3{font-family:var(--font-display);font-size:1.7rem;font-weight:600;margin-bottom:14px;}
+.modal-body .desc{color:var(--ivory-dim);white-space:pre-line;margin-bottom:24px;}
+.modal-actions{display:flex;gap:16px;align-items:center;margin-bottom:26px;}
+
+.comments-section h4{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+}
+.comment-list{display:flex;flex-direction:column;gap:14px;margin-bottom:20px;max-height:220px;overflow-y:auto;}
+.comment-item{
+  background:rgba(243,236,216,.05);
+  border-radius:12px;padding:12px 14px;
+}
+.comment-item .cname{font-weight:600;font-size:.86rem;color:var(--amber-2);margin-bottom:3px;}
+.comment-item .ctext{font-size:.88rem;color:var(--ivory-dim);}
+.comment-form{display:flex;flex-direction:column;gap:10px;}
+.comment-form input, .comment-form textarea{
+  background:rgba(243,236,216,.07);
+  border:1px solid rgba(243,236,216,.18);
+  border-radius:10px;padding:11px 14px;
+  color:var(--ivory);font-family:var(--font-body);font-size:.9rem;
+  resize:vertical;
+}
+.comment-form input:focus, .comment-form textarea:focus{border-color:var(--amber);}
+.btn-primary{
+  background:var(--amber);color:var(--night);font-weight:600;
+  padding:11px 20px;border-radius:10px;width:fit-content;
+  transition:background .2s;
+}
+.btn-primary:hover{background:var(--amber-2);}
+.btn-ghost{
+  border:1px solid rgba(243,236,216,.25);
+  padding:11px 20px;border-radius:10px;color:var(--ivory-dim);
+  transition:all .2s;
+}
+.btn-ghost:hover{border-color:var(--amber);color:var(--ivory);}
+.empty-comments{color:var(--ivory-dim);font-size:.86rem;font-style:italic;}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding:50px 6vw 34px;
+  border-top:1px solid rgba(243,236,216,.08);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
+}
+footer .foot-logo{font-family:var(--font-display);font-size:1.1rem;}
+footer .foot-copy{font-family:var(--font-mono);font-size:.76rem;color:var(--ivory-dim);letter-spacing:.05em;}
+
+/* ---------- WHATSAPP FLOAT ---------- */
+.wa-float{
+  position:fixed;bottom:26px;right:26px;z-index:150;
+  width:58px;height:58px;border-radius:50%;
+  background:#25D366;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 22px rgba(0,0,0,.4);
+  transition:transform .25s;
+}
+.wa-float:hover{transform:scale(1.08);}
+.wa-float svg{width:30px;height:30px;fill:#0F1712;}
+
+/* ---------- ADMIN LOGIN MODAL ---------- */
+.login-box{max-width:380px;}
+.login-box .modal-body{padding:38px 32px;}
+.login-box .eyebrow{margin-bottom:6px;}
+.login-box h3{font-family:var(--font-display);font-size:1.5rem;margin-bottom:24px;}
+.login-box form{display:flex;flex-direction:column;gap:14px;}
+.login-box input{
+  background:rgba(243,236,216,.07);
+  border:1px solid rgba(243,236,216,.18);
+  border-radius:10px;padding:12px 14px;
+  color:var(--ivory);font-family:var(--font-body);font-size:.92rem;
+}
+.login-box input:focus{border-color:var(--amber);}
+.login-error{color:#E36B5F;font-size:.82rem;display:none;}
+.login-error.show{display:block;}
+
+/* ---------- ADMIN DASHBOARD ---------- */
+#adminPanel{
+  position:fixed;inset:0;z-index:300;
+  background:var(--night);
+  display:none;
+  overflow-y:auto;
+}
+#adminPanel.show{display:block;}
+.admin-header{
+  position:sticky;top:0;z-index:5;
+  background:var(--night-2);
+  padding:20px 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(243,236,216,.1);
+}
+.admin-header h2{font-family:var(--font-display);font-size:1.4rem;}
+.admin-body{padding:40px 5vw 80px;max-width:1100px;margin:0 auto;}
+.admin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;}
+@media(max-width:900px){.admin-grid{grid-template-columns:1fr;}}
+.admin-card{
+  background:var(--night-2);border:1px solid rgba(243,236,216,.1);
+  border-radius:16px;padding:26px 26px 30px;
+}
+.admin-card h3{font-family:var(--font-display);font-size:1.15rem;margin-bottom:20px;}
+.admin-form{display:flex;flex-direction:column;gap:14px;}
+.admin-form label{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ivory-dim);margin-bottom:-6px;}
+.admin-form input, .admin-form select, .admin-form textarea{
+  background:rgba(243,236,216,.07);
+  border:1px solid rgba(243,236,216,.18);
+  border-radius:10px;padding:11px 14px;
+  color:var(--ivory);font-family:var(--font-body);font-size:.9rem;
+}
+.admin-form textarea{min-height:120px;resize:vertical;}
+.admin-form .row{display:flex;gap:10px;}
+.admin-form .row select{flex:1;}
+.admin-list{display:flex;flex-direction:column;gap:10px;margin-top:6px;max-height:420px;overflow-y:auto;}
+.admin-list-item{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(243,236,216,.05);
+  border-radius:10px;padding:10px 12px;
+}
+.admin-list-item img{width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0;}
+.admin-list-item .info{flex:1;min-width:0;}
+.admin-list-item .info .t{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.admin-list-item .info .c{font-size:.75rem;color:var(--ivory-dim);}
+.admin-list-item .actions{display:flex;gap:6px;}
+.icon-btn{
+  width:30px;height:30px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(243,236,216,.08);
+  transition:background .2s;
+}
+.icon-btn:hover{background:rgba(243,236,216,.18);}
+.icon-btn svg{width:15px;height:15px;}
+.icon-btn.danger:hover{background:var(--clay);}
+.cat-tag-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.cat-tag{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:.75rem;
+  background:rgba(201,149,43,.15);color:var(--gold);
+  padding:6px 10px 6px 12px;border-radius:20px;
+}
+.cat-tag button{color:var(--clay);font-weight:700;}
+.toast{
+  position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--acacia);color:var(--ivory);
+  padding:12px 22px;border-radius:30px;font-size:.88rem;
+  z-index:500;opacity:0;transition:all .3s;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.small-note{font-size:.78rem;color:var(--ivory-dim);margin-top:6px;}
+
+@media(max-width:640px){
+  .search-wrap{width:44vw;}
+  .sun{width:200px;height:200px;right:5vw;}
+  section{padding:70px 5vw;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">TANZANIA <span>VIVUTIO</span></div>
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <input type="text" id="searchInput" placeholder="Tafuta kivutio...">
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="sun" id="sun"></div>
+  <div class="eyebrow hero-eyebrow">// ARDHI YA KIPEKEE, AFRIKA MASHARIKI</div>
+  <h1>Gundua uzuri <em>usio na kifani</em> wa Tanzania</h1>
+  <p>Kutoka kilele cha Kilimanjaro hadi fukwe za Zanzibar, kutoka Serengeti hadi Ngorongoro — vivutio vinavyokufanya uone Tanzania kwa jicho jipya.</p>
+  <a href="#vivutio" class="hero-cta">
+    Gundua Vivutio
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </a>
+</header>
+
+<!-- HORIZON SIGNATURE DIVIDER -->
+<div class="horizon">
+  <svg viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,120 C200,60 350,150 500,100 C650,50 750,140 900,90 C1050,40 1200,130 1440,80 L1440,180 L0,180 Z" fill="#1E2E24"/>
+    <path d="M0,150 C220,110 400,170 620,130 C820,95 1000,165 1440,130 L1440,180 L0,180 Z" fill="#16211B"/>
+    <!-- acacia tree -->
+    <g fill="#0F1712">
+      <rect x="150" y="95" width="5" height="35"/>
+      <ellipse cx="152" cy="90" rx="42" ry="9"/>
+      <rect x="1220" y="105" width="4" height="28"/>
+      <ellipse cx="1222" cy="101" rx="34" ry="7"/>
+    </g>
+    <!-- animal silhouettes -->
+    <g fill="#0F1712" opacity=".8">
+      <path d="M700 140 q4 -14 14 -14 q3 -7 9 -7 q2 -4 6 -3 l2 6 q6 1 6 7 l-2 10 q-3 3 -8 2 l-3 6 h-4 l1 -6 q-10 1 -14 -3 l-7 2 z"/>
+    </g>
+  </svg>
+</div>
+
+<!-- VIVUTIO SECTION -->
+<section id="vivutio">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">// TEMBELEA</div>
+      <h2>Vivutio vya Tanzania</h2>
+    </div>
+  </div>
+  <div class="cat-filter" id="catFilter">
+    <button class="cat-chip active" data-cat="all">Vyote</button>
+  </div>
+  <div class="grid" id="vivutioGrid">
+    <div class="empty-state">Inapakia vivutio...</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">TANZANIA <span style="color:var(--amber)">VIVUTIO</span></div>
+  <div class="foot-copy">© NOVA SOFT</div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa-float" href="https://wa.me/255611378027" target="_blank" rel="noopener" aria-label="Wasiliana WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16.04 3C9.37 3 3.95 8.42 3.95 15.09c0 2.27.63 4.39 1.72 6.2L3 29l7.9-2.6a12.05 12.05 0 0 0 5.14 1.15h.01c6.67 0 12.09-5.42 12.09-12.09C28.14 8.79 22.72 3 16.04 3zm0 21.9h-.01a10.05 10.05 0 0 1-5.13-1.4l-.37-.22-4.69 1.55 1.57-4.57-.24-.38a9.98 9.98 0 0 1-1.53-5.31c0-5.53 4.5-10.03 10.05-10.03 2.68 0 5.2 1.05 7.09 2.94a9.94 9.94 0 0 1 2.94 7.1c0 5.53-4.5 10.32-9.68 10.32zm5.49-7.51c-.3-.15-1.77-.87-2.05-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.96 1.17-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.79-1.68-2.09-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.65-.94-2.26-.25-.6-.5-.51-.68-.52h-.58c-.2 0-.53.07-.8.38-.28.3-1.05 1.02-1.05 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>
+</a>
+
+<!-- DETAIL MODAL -->
+<div class="overlay" id="detailOverlay">
+  <div class="modal" id="detailModal">
+    <button class="modal-close" id="detailClose">&times;</button>
+    <img class="modal-img" id="detailImg" src="" alt="">
+    <div class="modal-body">
+      <div class="card-cat" id="detailCat"></div>
+      <h3 id="detailTitle"></h3>
+      <div class="desc" id="detailDesc"></div>
+      <div class="modal-actions">
+        <button class="like-btn" id="detailLike">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.1C.5 8.6 2.3 5 6 5c2.1 0 3.6 1.2 4.5 2.6C11.4 6.2 12.9 5 15 5c3.7 0 5.5 3.6 4 6.9-2.5 4.5-10 9.1-10 9.1z"/></svg>
+          <span id="detailLikeCount">0</span> Napenda
+        </button>
+        <span class="comment-count" id="detailCommentCount">0 maoni</span>
+      </div>
+      <div class="comments-section">
+        <h4>// Maoni ya wageni</h4>
+        <div class="comment-list" id="commentList"></div>
+        <form class="comment-form" id="commentForm">
+          <input type="text" id="commentName" placeholder="Jina lako" required maxlength="40">
+          <textarea id="commentText" placeholder="Andika maoni yako..." required maxlength="400"></textarea>
+          <button type="submit" class="btn-primary">Tuma Maoni</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="overlay" id="loginOverlay">
+  <div class="modal login-box">
+    <button class="modal-close" id="loginClose">&times;</button>
+    <div class="modal-body">
+      <div class="eyebrow">// SEHEMU YA MENEJIMENTI</div>
+      <h3>Ingia Admin Dashboard</h3>
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Barua pepe ya admin" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <div class="login-error" id="loginError">Barua pepe au password si sahihi.</div>
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Ingia</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminPanel">
+  <div class="admin-header">
+    <h2>Admin Dashboard <span style="color:var(--amber-2)">— NOVA SOFT</span></h2>
+    <div style="display:flex;gap:14px;align-items:center;">
+      <button class="btn-ghost" id="backToSite">← Rudi kwenye Site</button>
+      <button class="btn-ghost" id="logoutBtn">Toka</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="admin-grid">
+      <div class="admin-card">
+        <h3 id="formTitle">Ongeza Kivutio Kipya</h3>
+        <form class="admin-form" id="vivutioForm">
+          <input type="hidden" id="editId">
+          <label>Jina la Kivutio</label>
+          <input type="text" id="vTitle" required placeholder="mfano: Mlima Kilimanjaro">
+          <div class="row">
+            <div style="flex:1;">
+              <label>Kategoria</label>
+              <select id="vCategory" required></select>
+            </div>
+          </div>
+          <label>Link ya Picha (URL)</label>
+          <input type="url" id="vImage" required placeholder="https://...">
+          <label>Maelezo Kamili</label>
+          <textarea id="vDesc" required placeholder="Andika maelezo marefu ya kivutio hapa..."></textarea>
+          <div style="display:flex;gap:10px;margin-top:6px;">
+            <button type="submit" class="btn-primary" id="vSubmitBtn">Hifadhi Kivutio</button>
+            <button type="button" class="btn-ghost" id="vCancelEdit" style="display:none;">Ghairi</button>
+          </div>
+        </form>
+
+        <div style="margin-top:34px;border-top:1px solid rgba(243,236,216,.1);padding-top:24px;">
+          <h3>Ongeza Kategoria</h3>
+          <div class="row">
+            <input type="text" id="newCatInput" placeholder="mfano: Fukwe, Milima, Hifadhi..." style="flex:1;background:rgba(243,236,216,.07);border:1px solid rgba(243,236,216,.18);border-radius:10px;padding:11px 14px;color:var(--ivory);">
+            <button class="btn-primary" id="addCatBtn">Ongeza</button>
+          </div>
+          <div class="cat-tag-list" id="catTagList"></div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <h3>Vivutio Vilivyopo (<span id="vCount">0</span>)</h3>
+        <div class="admin-list" id="adminList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+/* =========================================================
+   FIREBASE CONFIG
+   ========================================================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyDPZx7OPw2D6J533kNX-T302RoqPGAPz7k",
+  authDomain: "teknova-c9d6e.firebaseapp.com",
+  databaseURL: "https://teknova-c9d6e-default-rtdb.firebaseio.com",
+  projectId: "teknova-c9d6e",
+  storageBucket: "teknova-c9d6e.firebasestorage.app",
+  messagingSenderId: "47075576420",
+  appId: "1:47075576420:web:29d0588bee99558d866d71"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const rtdb = firebase.database();
+
+/* =========================================================
+   STATE
+   ========================================================= */
+let allVivutio = [];
+let allCategories = [];
+let activeCategory = 'all';
+let currentDetailId = null;
+let isAdmin = false;
+const SECRET_PHRASE = "JOSE MWENA";
+
+/* =========================================================
+   UTIL
+   ========================================================= */
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2600);
+}
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+function truncate(str, n){
+  if(!str) return '';
+  return str.length > n ? str.slice(0,n).trim() + '…' : str;
+}
+function likedIds(){
+  return JSON.parse(localStorage.getItem('tv_liked') || '[]');
+}
+function setLiked(id, val){
+  let arr = likedIds();
+  if(val){ if(!arr.includes(id)) arr.push(id); }
+  else { arr = arr.filter(x=>x!==id); }
+  localStorage.setItem('tv_liked', JSON.stringify(arr));
+}
+
+/* =========================================================
+   SUN POSITION (decorative, scroll-based)
+   ========================================================= */
+window.addEventListener('scroll', ()=>{
+  const sun = document.getElementById('sun');
+  const y = Math.min(window.scrollY / 3, 260);
+  sun.style.top = (16 + y/8) + '%';
+  sun.style.opacity = Math.max(1 - window.scrollY/900, 0.15);
+});
+
+/* =========================================================
+   CATEGORIES: load + render filter + populate selects
+   ========================================================= */
+function listenCategories(){
+  rtdb.ref('categories').on('value', snap=>{
+    const val = snap.val() || {};
+    allCategories = Object.keys(val)
+      .map(id=>({id, ...val[id]}))
+      .sort((a,b)=> (a.name||'').localeCompare(b.name||''));
+    renderCatFilter();
+    renderCatSelect();
+    renderCatTagList();
+  }, err=>console.error(err));
+}
+
+function renderCatFilter(){
+  const wrap = document.getElementById('catFilter');
+  wrap.innerHTML = `<button class="cat-chip ${activeCategory==='all'?'active':''}" data-cat="all">Vyote</button>`;
+  allCategories.forEach(c=>{
+    wrap.innerHTML += `<button class="cat-chip ${activeCategory===c.name?'active':''}" data-cat="${escapeHtml(c.name)}">${escapeHtml(c.name)}</button>`;
+  });
+  wrap.querySelectorAll('.cat-chip').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      activeCategory = btn.dataset.cat;
+      renderCatFilter();
+      renderGrid();
+    });
+  });
+}
+
+function renderCatSelect(){
+  const sel = document.getElementById('vCategory');
+  const prev = sel.value;
+  sel.innerHTML = allCategories.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+  if(allCategories.find(c=>c.name===prev)) sel.value = prev;
+}
+
+function renderCatTagList(){
+  const wrap = document.getElementById('catTagList');
+  wrap.innerHTML = allCategories.map(c=>`
+    <span class="cat-tag">${escapeHtml(c.name)} <button data-id="${c.id}" data-del-cat>&times;</button></span>
+  `).join('') || `<span class="small-note">Hakuna kategoria bado.</span>`;
+  wrap.querySelectorAll('[data-del-cat]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      if(!confirm('Futa kategoria hii?')) return;
+      await rtdb.ref('categories/' + btn.dataset.id).remove();
+      toast('Kategoria imefutwa');
+    });
+  });
+}
+
+document.getElementById('addCatBtn').addEventListener('click', async ()=>{
+  const input = document.getElementById('newCatInput');
+  const name = input.value.trim();
+  if(!name) return;
+  if(allCategories.find(c=>c.name.toLowerCase()===name.toLowerCase())){
+    toast('Kategoria hii tayari ipo');
+    return;
+  }
+  await rtdb.ref('categories').push({name, createdAt: firebase.database.ServerValue.TIMESTAMP});
+  input.value='';
+  toast('Kategoria imeongezwa');
+});
+
+/* =========================================================
+   VIVUTIO: load + render grid + admin list
+   ========================================================= */
+function listenVivutio(){
+  rtdb.ref('vivutio').on('value', snap=>{
+    const val = snap.val() || {};
+    allVivutio = Object.keys(val)
+      .map(id=>({id, ...val[id]}))
+      .sort((a,b)=> (b.createdAt||0) - (a.createdAt||0));
+    renderGrid();
+    renderAdminList();
+  }, err=>console.error(err));
+}
+
+function renderGrid(){
+  const grid = document.getElementById('vivutioGrid');
+  let list = allVivutio;
+  if(activeCategory !== 'all') list = list.filter(v=>v.category===activeCategory);
+
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if(q && q !== SECRET_PHRASE.toLowerCase()){
+    list = list.filter(v=> (v.title||'').toLowerCase().includes(q) || (v.category||'').toLowerCase().includes(q));
+  }
+
+  if(list.length === 0){
+    grid.innerHTML = `<div class="empty-state">Hakuna vivutio vinavyolingana. ${allVivutio.length===0 ? 'Admin bado hajaongeza vivutio.' : 'Jaribu kategoria nyingine.'}</div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(v=>{
+    const liked = likedIds().includes(v.id);
+    return `
+    <div class="card" data-id="${v.id}">
+      <img class="card-img" src="${escapeHtml(v.imageUrl)}" alt="${escapeHtml(v.title)}" onerror="this.style.background='linear-gradient(135deg,#1E2E24,#3F6047)'; this.src='';">
+      <div class="card-body">
+        <div class="card-cat">${escapeHtml(v.category||'')}</div>
+        <h3>${escapeHtml(v.title)}</h3>
+        <p>${escapeHtml(truncate(v.description, 110))}</p>
+        <span class="card-more" data-open="${v.id}">Soma Zaidi
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <div class="card-foot">
+          <button class="like-btn ${liked?'liked':''}" data-like="${v.id}">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="${liked?'currentColor':'none'}"><path d="M12 21s-7.5-4.6-10-9.1C.5 8.6 2.3 5 6 5c2.1 0 3.6 1.2 4.5 2.6C11.4 6.2 12.9 5 15 5c3.7 0 5.5 3.6 4 6.9-2.5 4.5-10 9.1-10 9.1z"/></svg>
+            ${v.likes||0}
+          </button>
+          <span class="comment-count" data-ccount="${v.id}">…</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  grid.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click', ()=>openDetail(el.dataset.open)));
+  grid.querySelectorAll('.card-img').forEach(img=>img.addEventListener('click', (e)=>{
+    openDetail(e.target.closest('.card').dataset.id);
+  }));
+  grid.querySelectorAll('[data-like]').forEach(el=>el.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    toggleLike(el.dataset.like);
+  }));
+
+  list.forEach(v=>{
+    rtdb.ref('comments/' + v.id).once('value').then(cs=>{
+      const el = grid.querySelector(`[data-ccount="${v.id}"]`);
+      const count = cs.exists() ? Object.keys(cs.val()).length : 0;
+      if(el) el.textContent = count + ' maoni';
+    });
+  });
+}
+
+async function toggleLike(id){
+  const already = likedIds().includes(id);
+  const ref = rtdb.ref('vivutio/' + id + '/likes');
+  try{
+    await ref.transaction(current=>{
+      const cur = current || 0;
+      return already ? Math.max(0, cur - 1) : cur + 1;
+    });
+    setLiked(id, !already);
+    renderGrid();
+    if(currentDetailId === id) updateDetailLike();
+  }catch(err){console.error(err);}
+}
+
+function renderAdminList(){
+  const wrap = document.getElementById('adminList');
+  document.getElementById('vCount').textContent = allVivutio.length;
+  if(allVivutio.length === 0){
+    wrap.innerHTML = `<span class="small-note">Bado hujaongeza kivutio chochote.</span>`;
+    return;
+  }
+  wrap.innerHTML = allVivutio.map(v=>`
+    <div class="admin-list-item">
+      <img src="${escapeHtml(v.imageUrl)}" onerror="this.style.background='#3F6047'; this.src='';">
+      <div class="info">
+        <div class="t">${escapeHtml(v.title)}</div>
+        <div class="c">${escapeHtml(v.category||'')} · ${v.likes||0} likes</div>
+      </div>
+      <div class="actions">
+        <button class="icon-btn" data-edit="${v.id}" title="Hariri">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>
+        </button>
+        <button class="icon-btn danger" data-del="${v.id}" title="Futa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+        </button>
+      </div>
+    </div>
+  `).join('');
+
+  wrap.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click', ()=>editVivutio(b.dataset.edit)));
+  wrap.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click', ()=>deleteVivutio(b.dataset.del)));
+}
+
+function editVivutio(id){
+  const v = allVivutio.find(x=>x.id===id);
+  if(!v) return;
+  document.getElementById('editId').value = id;
+  document.getElementById('vTitle').value = v.title;
+  document.getElementById('vCategory').value = v.category;
+  document.getElementById('vImage').value = v.imageUrl;
+  document.getElementById('vDesc').value = v.description;
+  document.getElementById('formTitle').textContent = 'Hariri Kivutio';
+  document.getElementById('vSubmitBtn').textContent = 'Hifadhi Mabadiliko';
+  document.getElementById('vCancelEdit').style.display = 'inline-block';
+  document.querySelector('.admin-card').scrollIntoView({behavior:'smooth'});
+}
+
+document.getElementById('vCancelEdit').addEventListener('click', resetVivutioForm);
+function resetVivutioForm(){
+  document.getElementById('vivutioForm').reset();
+  document.getElementById('editId').value = '';
+  document.getElementById('formTitle').textContent = 'Ongeza Kivutio Kipya';
+  document.getElementById('vSubmitBtn').textContent = 'Hifadhi Kivutio';
+  document.getElementById('vCancelEdit').style.display = 'none';
+}
+
+async function deleteVivutio(id){
+  if(!confirm('Una uhakika unataka kufuta kivutio hiki? Maoni yake yote yatafutika pia.')) return;
+  await rtdb.ref('vivutio/' + id).remove();
+  await rtdb.ref('comments/' + id).remove();
+  toast('Kivutio kimefutwa');
+}
+
+document.getElementById('vivutioForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const id = document.getElementById('editId').value;
+  const data = {
+    title: document.getElementById('vTitle').value.trim(),
+    category: document.getElementById('vCategory').value,
+    imageUrl: document.getElementById('vImage').value.trim(),
+    description: document.getElementById('vDesc').value.trim(),
+  };
+  if(!data.category){ toast('Ongeza kategoria kwanza'); return; }
+  try{
+    if(id){
+      await rtdb.ref('vivutio/' + id).update(data);
+      toast('Kivutio kimesasishwa');
+    } else {
+      data.likes = 0;
+      data.createdAt = firebase.database.ServerValue.TIMESTAMP;
+      await rtdb.ref('vivutio').push(data);
+      toast('Kivutio kimeongezwa');
+    }
+    resetVivutioForm();
+  }catch(err){
+    console.error(err);
+    toast('Hitilafu imetokea, jaribu tena');
+  }
+});
+
+/* =========================================================
+   DETAIL MODAL + COMMENTS
+   ========================================================= */
+let commentUnsub = null;
+
+function openDetail(id){
+  const v = allVivutio.find(x=>x.id===id);
+  if(!v) return;
+  currentDetailId = id;
+  document.getElementById('detailImg').src = v.imageUrl;
+  document.getElementById('detailImg').alt = v.title;
+  document.getElementById('detailCat').textContent = v.category || '';
+  document.getElementById('detailTitle').textContent = v.title;
+  document.getElementById('detailDesc').textContent = v.description;
+  updateDetailLike();
+  document.getElementById('detailOverlay').classList.add('show');
+
+  if(commentUnsub) { commentUnsub.ref.off('value', commentUnsub.cb); }
+  const list = document.getElementById('commentList');
+  list.innerHTML = 'Inapakia maoni...';
+  const commentsRef = rtdb.ref('comments/' + id);
+  const cb = snap=>{
+    const val = snap.val() || {};
+    const items = Object.keys(val).map(k=>({id:k, ...val[k]}))
+      .sort((a,b)=> (b.createdAt||0) - (a.createdAt||0));
+    if(items.length === 0){
+      list.innerHTML = `<span class="empty-comments">Hakuna maoni bado. Kuwa wa kwanza kutoa maoni!</span>`;
+    } else {
+      list.innerHTML = items.map(c=>{
+        return `<div class="comment-item"><div class="cname">${escapeHtml(c.name)}</div><div class="ctext">${escapeHtml(c.text)}</div></div>`;
+      }).join('');
+    }
+    document.getElementById('detailCommentCount').textContent = items.length + ' maoni';
+  };
+  commentsRef.on('value', cb);
+  commentUnsub = {ref: commentsRef, cb};
+}
+
+function updateDetailLike(){
+  const v = allVivutio.find(x=>x.id===currentDetailId);
+  if(!v) return;
+  const liked = likedIds().includes(v.id);
+  const btn = document.getElementById('detailLike');
+  btn.classList.toggle('liked', liked);
+  document.getElementById('detailLikeCount').textContent = v.likes || 0;
+}
+
+document.getElementById('detailLike').addEventListener('click', ()=>{
+  if(currentDetailId) toggleLike(currentDetailId);
+});
+
+document.getElementById('detailClose').addEventListener('click', closeDetail);
+document.getElementById('detailOverlay').addEventListener('click', (e)=>{
+  if(e.target.id === 'detailOverlay') closeDetail();
+});
+function closeDetail(){
+  document.getElementById('detailOverlay').classList.remove('show');
+  if(commentUnsub){ commentUnsub.ref.off('value', commentUnsub.cb); commentUnsub = null; }
+  currentDetailId = null;
+}
+
+document.getElementById('commentForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const name = document.getElementById('commentName').value.trim();
+  const text = document.getElementById('commentText').value.trim();
+  if(!name || !text || !currentDetailId) return;
+  await rtdb.ref('comments/' + currentDetailId).push({
+    name, text, createdAt: firebase.database.ServerValue.TIMESTAMP
+  });
+  document.getElementById('commentForm').reset();
+});
+
+/* =========================================================
+   SEARCH + SECRET ADMIN TRIGGER
+   ========================================================= */
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', ()=>{
+  const val = searchInput.value.trim().toUpperCase();
+  if(val === SECRET_PHRASE){
+    searchInput.value = '';
+    openLogin();
+    return;
+  }
+  renderGrid();
+});
+
+/* =========================================================
+   ADMIN AUTH
+   ========================================================= */
+function openLogin(){
+  document.getElementById('loginError').classList.remove('show');
+  document.getElementById('loginOverlay').classList.add('show');
+}
+document.getElementById('loginClose').addEventListener('click', ()=>{
+  document.getElementById('loginOverlay').classList.remove('show');
+});
+document.getElementById('loginOverlay').addEventListener('click', (e)=>{
+  if(e.target.id === 'loginOverlay') document.getElementById('loginOverlay').classList.remove('show');
+});
+
+document.getElementById('loginForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPassword').value;
+  try{
+    await auth.signInWithEmailAndPassword(email, pass);
+    document.getElementById('loginOverlay').classList.remove('show');
+    document.getElementById('loginForm').reset();
+  }catch(err){
+    document.getElementById('loginError').classList.add('show');
+  }
+});
+
+auth.onAuthStateChanged(user=>{
+  isAdmin = !!user;
+  if(isAdmin){
+    document.getElementById('adminPanel').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.getElementById('adminPanel').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', ()=>{
+  auth.signOut();
+});
+document.getElementById('backToSite').addEventListener('click', ()=>{
+  document.getElementById('adminPanel').classList.remove('show');
+  document.body.style.overflow = '';
+});
+
+/* =========================================================
+   INIT
+   ========================================================= */
+listenCategories();
+listenVivutio();
+</script>
+</body>
+</html>
